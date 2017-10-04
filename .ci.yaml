@@ -1,0 +1,13 @@
+pipeline:
+  build:
+    group: build
+    image: golang:latest
+    environment:
+      - NAME=testing
+    commands:
+      - go build
+      - telnet localhost 5432
+services:
+  postgres:
+    image: postgres
+    
