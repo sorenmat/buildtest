@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"testing"
+	"time"
 
 	_ "github.com/lib/pq"
 )
@@ -19,7 +20,18 @@ func TestDatabase(t *testing.T) {
 		t.Error(err)
 	}
 	defer db.Close()
-	if db.Ping() != nil {
-		t.Error("unable to ping database")
+	pinged := false
+	counter := 0
+	for !pinged {
+		if db.Ping() == nil {
+			pinged = true
+			fmt.Println("Database pinged !!")
+		}
+		time.Sleep(1 * time.Second)
+		counter++
+		if counter >= 10 {
+			t.Error("not able to ping db")
+		}
 	}
+
 }
