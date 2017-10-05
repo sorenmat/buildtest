@@ -6,7 +6,8 @@ pipeline:
       - NAME=testing
     commands:
       - go build
-      - telnet localhost 5432
+      - go test
+      
 services:
   postgres:
     image: postgres
